@@ -34,7 +34,6 @@ class Presenter(private val view: ViewInterface):ViewInterfacePresenter {
                 view.show(a,b,c)
             }
         })
-//        return(a)
     }
 
 }

@@ -73,7 +73,6 @@ class FirstFragment : androidx.fragment.app.Fragment(),ViewInterface {
     }
 
     override fun show(name: MutableList<String>, info: MutableList<String>, pic_url:MutableList<String>) {
-//        context?.let { Toast.makeText(it, "成功", Toast.LENGTH_LONG).show() }
         Log.d("abc",name.toString())
         getUserdata(name,info,pic_url)
     }

@@ -14,14 +14,7 @@ import kotlinx.android.synthetic.main.fragment_third.*
 
 class ThirdFragment : Fragment() {
     private var AlsoKnown: String? = null
-    private var Location: String? = null
     private var Pic_url: String? = null
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,16 +23,14 @@ class ThirdFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_third, container, false)
         val binding = FragmentThirdBinding.bind(view)
         binding.AlsoKnown.setText(AlsoKnown)
-        binding.Location.setText(Location)
         binding.pic3.load(Pic_url)
         return view
     }
 
     companion object {
-        fun newInstance(alsoKnown: String,location: String,pic_url: String) =
+        fun newInstance(alsoKnown: String,pic_url: String) =
             ThirdFragment().apply {
                 AlsoKnown = alsoKnown
-                Location = location
                 Pic_url = pic_url
             }
     }

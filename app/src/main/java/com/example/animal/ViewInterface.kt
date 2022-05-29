@@ -9,7 +9,7 @@ interface ViewInterfacePresenter{
 }
 
 interface PlantViewInterface {
-    fun show(name:MutableList<String>, info:MutableList<String>, pic_url:MutableList<String>)
+    fun show(AlsoKnown:MutableList<String>, Location:MutableList<String>, Pic_url:MutableList<String>)
 }
 
 interface PlantViewInterfacePresenter{

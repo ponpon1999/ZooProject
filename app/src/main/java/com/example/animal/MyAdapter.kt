@@ -1,23 +1,13 @@
 package com.example.animal
 
-import android.graphics.drawable.Drawable
-import android.icu.number.NumberFormatter.with
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.Nullable
-import androidx.core.os.persistableBundleOf
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
-import com.bumptech.glide.request.RequestListener
-import javax.sql.DataSource
-
 class MyAdapter(private val animalName:ArrayList<dataView>,
                 private val animalInfo: ArrayList<dataView>,
                 private val pic: ArrayList<dataView>
@@ -56,8 +46,6 @@ class MyAdapter(private val animalName:ArrayList<dataView>,
             Glide.with(holder.itemView.context)
                 .load(URL)
                 .into(holder.pic)
-
-            Log.d("ppp",currentItem3.pic.toString())
         }
     }
 
