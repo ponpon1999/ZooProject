@@ -1,19 +1,21 @@
 package com.example.animal
 
-
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-class MyAdapter(private val animalName:ArrayList<dataView>,
-                private val animalInfo: ArrayList<dataView>,
-                private val pic: ArrayList<dataView>
+import coil.load
+
+@Suppress("UNREACHABLE_CODE")
+class MyAdapter(private val animalName: MutableList<String>,
+                private val animalInfo: MutableList<String>,
+                private val pic: MutableList<String>
                 ) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-
     private lateinit var mListener : onItemClickListener
 
     interface onItemClickListener{
@@ -33,19 +35,20 @@ class MyAdapter(private val animalName:ArrayList<dataView>,
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         pic?.run {
             val currentItem1 = animalName[position]
             val currentItem2= animalInfo[position]
             val currentItem3= pic[position]
-            val URL = currentItem3.pic.toString()
-            holder.name.text = currentItem1.name
-            holder.info.text = currentItem2.info
-            //holder.pic.load("https://www.zoo.gov.tw/iTAP/05_Exhibit/04_DesertAnimal.jpg")
-            //holder.pic.load("${currentItem3.pic}")
-            Glide.with(holder.itemView.context)
-                .load(URL)
-                .into(holder.pic)
+            val URL = (currentItem3).replace("http", "https")
+            Log.d(TAG,URL+"good")
+            holder.name.text = currentItem1
+            holder.info.text = currentItem2
+            holder.run { pic.load(URL) }
+//            holder.run { pic.load("https://www.zoo.gov.tw/iTAP/05_Exhibit/04_DesertAnimal.jpg") }
+//            holder.pic.load("${currentItem3.pic}")
+//            Glide.with(holder.itemView.context)
+//                .load(URL)
+//                .into(holder.pic)
         }
     }
 
@@ -67,3 +70,4 @@ class MyAdapter(private val animalName:ArrayList<dataView>,
         }
     }
 }
+

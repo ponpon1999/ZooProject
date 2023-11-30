@@ -1,7 +1,6 @@
 package com.example.animal
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,59 +10,46 @@ import com.example.animal.databinding.FragmentFirstBinding
 
 class FirstFragment : androidx.fragment.app.Fragment(),ViewInterface {
     private lateinit var presenter: Presenter
-    private lateinit var newRecyclerview: RecyclerView
-    private lateinit var newArrayList1: ArrayList<dataView>
-    private lateinit var newArrayList2: ArrayList<dataView>
-    private lateinit var newArrayList3: ArrayList<dataView>
+    private lateinit var Recyclerview: RecyclerView
+    private lateinit var NameData: ArrayList<dataView>
+    private lateinit var InfoData: ArrayList<dataView>
+    private lateinit var PicData: ArrayList<dataView>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_first, container, false)
         val binding = FragmentFirstBinding.bind(view)
-
-        newRecyclerview = binding.recyclerView
-        newRecyclerview.layoutManager = LinearLayoutManager(context)
-        newRecyclerview.setHasFixedSize(true)
-        newArrayList1 = arrayListOf<dataView>()
-        newArrayList2 = arrayListOf<dataView>()
-        newArrayList3 = arrayListOf<dataView>()
+        Recyclerview = binding.recyclerView
+        Recyclerview.layoutManager = LinearLayoutManager(context)
+        Recyclerview.setHasFixedSize(true)
+        NameData = arrayListOf()
+        InfoData = arrayListOf()
+        PicData = arrayListOf()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         presenter = Presenter(this)
         presenter.processCall()
     }
 
-    private fun getUserdata(
-        name: MutableList<String>, info:MutableList<String>, pic_url: MutableList<String>
+    private fun PrintData(
+        NameData: MutableList<String>, InfoData:MutableList<String>, PicData: MutableList<String>
     ){
-        for (i in name.indices){
-            val name =dataView(name[i]!!.toString(), "", "")
-            newArrayList1.add(name)
+        for (i in NameData.indices){
+            val GetData =dataView(NameData[i]!!.toString(), InfoData[i]!!.toString(), PicData[i]!!.toString())
+            NameData.add(GetData)
+            InfoData.add(GetData)
+            PicData.add(GetData)
         }
-
-        for (i in info.indices){
-            val info =dataView("", info[i]!!.toString(), "")
-            newArrayList2.add(info)
-        }
-
-        for (i in pic_url.indices){
-            val pic_url =dataView("", "", pic_url[i]!!.toString())
-            newArrayList3.add(pic_url)
-        }
-        var adapter = MyAdapter(newArrayList1,newArrayList2,newArrayList3)
-
-
-        newRecyclerview.adapter = adapter
+        var adapter = MyAdapter(NameData,InfoData,PicData)
+        Recyclerview.adapter = adapter
         adapter.setOnItemClickListener(object : MyAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-                val secondFragment = SecondFragment.newInstance(info[position],newArrayList1[position])
+                val secondFragment = SecondFragment.newInstance(InfoData[position],NameData[position])
                 val beginTransaction = parentFragmentManager.beginTransaction()
                 beginTransaction.replace(R.id.container,secondFragment)
                 beginTransaction.addToBackStack(null)
@@ -73,9 +59,9 @@ class FirstFragment : androidx.fragment.app.Fragment(),ViewInterface {
     }
 
     override fun show(name: MutableList<String>, info: MutableList<String>, pic_url:MutableList<String>) {
-        Log.d("abc",name.toString())
-        getUserdata(name,info,pic_url)
+        PrintData(name,info,pic_url)
     }
+}
 
-
+private fun <E> MutableList<E>.add(element: dataView) {
 }

@@ -8,17 +8,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animal.databinding.FragmentSecondBinding
-import kotlinx.android.synthetic.main.fragment_second.*
 
-
-class SecondFragment : Fragment() ,PlantViewInterface,ViewInterface{
-    private var InfoData: String? = null
+class SecondFragment : Fragment() ,ViewInterface{
+    private var InfoData2: String? = null
     private var E_name: String? = null
     private lateinit var presenter: PlantPresenter
-    private lateinit var newRecyclerview: RecyclerView
-    private lateinit var newArrayList1: ArrayList<dataView>
-    private lateinit var newArrayList2: ArrayList<dataView>
-    private lateinit var newArrayList3: ArrayList<dataView>
+    private lateinit var Recyclerview: RecyclerView
+    private lateinit var NameData: ArrayList<dataView>
+    private lateinit var InfoData: ArrayList<dataView>
+    private lateinit var PicData: ArrayList<dataView>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,14 +24,13 @@ class SecondFragment : Fragment() ,PlantViewInterface,ViewInterface{
     ): View? {
         val view = inflater.inflate(R.layout.fragment_second, container, false)
         val binding = FragmentSecondBinding.bind(view)
-        binding.infoData.setText(InfoData)
-//        binding.title1.setText("植物資料")
-        newRecyclerview = binding.recyclerView1
-        newRecyclerview.layoutManager = LinearLayoutManager(context)
-        newRecyclerview.setHasFixedSize(true)
-        newArrayList1 = arrayListOf<dataView>()
-        newArrayList2 = arrayListOf<dataView>()
-        newArrayList3 = arrayListOf<dataView>()
+        binding.infoData.setText(InfoData2)
+        Recyclerview = binding.recyclerView1
+        Recyclerview.layoutManager = LinearLayoutManager(context)
+        Recyclerview.setHasFixedSize(true)
+        NameData = arrayListOf()
+        InfoData = arrayListOf()
+        PicData = arrayListOf()
         return view
     }
 
@@ -43,11 +40,12 @@ class SecondFragment : Fragment() ,PlantViewInterface,ViewInterface{
         presenter.processCall()
     }
 
+
     companion object {
-        fun newInstance(infoData: String, e_name: dataView) =
+        fun newInstance(infoData: String, e_name: String) =
             SecondFragment().apply {
-                InfoData = infoData
-                E_name = e_name.name
+                InfoData2 = infoData
+                E_name = e_name
             }
     }
 
@@ -56,36 +54,23 @@ class SecondFragment : Fragment() ,PlantViewInterface,ViewInterface{
     ){
         for (i in AlsoKnown.indices){
             if(Location[i].contains(E_name.toString())){
-                val AlsoKnown =dataView(AlsoKnown[i]!!.toString(), "", "")
-                newArrayList1.add(AlsoKnown)
+                val GetData =dataView(AlsoKnown[i]!!.toString(), Location[i]!!.toString(), pic_url[i]!!.toString())
+                NameData.add(GetData)
+                InfoData.add(GetData)
+                PicData.add(GetData)
             }
         }
-        for (i in Location.indices){
-            if(Location[i].contains(E_name.toString())) {
-                val Location = dataView("", Location[i]!!.toString(), "")
-                newArrayList2.add(Location)
-            }
-        }
-
-        for (i in pic_url.indices){
-            if(Location[i].contains(E_name.toString())) {
-                val Pic_url = dataView("", "", pic_url[i]!!.toString())
-                newArrayList3.add(Pic_url)
-            }
-        }
-
-        var adapter = PlantMyAdapter(newArrayList1,newArrayList2,newArrayList3)
-        newRecyclerview.adapter = adapter
+        var adapter = PlantMyAdapter(NameData,InfoData,PicData)
+        Recyclerview.adapter = adapter
         adapter.setOnItemClickListener(object : PlantMyAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-                val ThirdFragment = ThirdFragment.newInstance(newArrayList1[position].name, newArrayList3[position].pic.toString())
+                val ThirdFragment = ThirdFragment.newInstance(NameData[position].name, PicData[position].pic.toString())
                 val beginTransaction = parentFragmentManager.beginTransaction()
                 beginTransaction.replace(R.id.container,ThirdFragment)
                 beginTransaction.addToBackStack(null)
                 beginTransaction.commit()
             }
         })
-
     }
 
     override fun show(AlsoKnown: MutableList<String>, Location: MutableList<String>, Pic_url:MutableList<String>) {

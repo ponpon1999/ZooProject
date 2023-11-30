@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
+@Suppress("UNREACHABLE_CODE")
 class PlantMyAdapter(private val AlsoKnown:ArrayList<dataView>,
                      private val Location: ArrayList<dataView>,
                      private val Pic_url: ArrayList<dataView>
                 ) :
+
     RecyclerView.Adapter<PlantMyAdapter.MyViewHolder>() {
-
     private lateinit var mListener : onItemClickListener
-
     interface onItemClickListener{
         fun onItemClick(position: Int)
     }
@@ -31,12 +31,11 @@ class PlantMyAdapter(private val AlsoKnown:ArrayList<dataView>,
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        Pic_url?.run {
+        Pic_url.run {
             val currentItem1 = AlsoKnown[position]
             val currentItem2= Location[position]
             val currentItem3= Pic_url[position]
-            val URL = currentItem3.pic.toString()
+            val URL = (currentItem3.pic.toString()).replace("http", "https")
             holder.alsoKnown.text = currentItem1.name
             holder.location.text = currentItem2.info
             //holder.pic.load("https://www.zoo.gov.tw/iTAP/05_Exhibit/04_DesertAnimal.jpg")

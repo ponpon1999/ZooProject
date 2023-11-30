@@ -3,20 +3,20 @@ package com.example.animal
 data class dataView(var name: String, var info: String?,var pic: String?)
 
 data class animal(
-    val result: Result
+    val result: Result<Any?>
 )
 
-data class Result(
+data class Result<T>(
     val limit: Int,
     val offset: Int,
     val count: Int,
     val sort: String,
-    val results: List<ResultX>
+    val results: List<ResultData>,
 )
 
-data class ResultX(
-    val _id: Int,
-    val _importdate: Importdate,
+data class ResultData(
+    val e_ID: Int,
+    val e_importdate: Importdate,
     val e_no: String,
     val e_category: String,
     val e_name: String,
@@ -42,10 +42,10 @@ data class PlantResult(
     val offset: Int,
     val count: Int,
     val sort: String,
-    val results: List<PlantResultX>
+    val results: List<PlantResultData>
 )
 
-data class PlantResultX(
+data class PlantResultData(
     val _id: Int,
     val F_Name_Ch: String,
     val F_Summary: String,

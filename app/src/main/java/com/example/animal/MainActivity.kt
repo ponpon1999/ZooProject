@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val firstFragment = FirstFragment()
+        val firstFragment = FirstFragment()//進入動物園園區清單
         runOnUiThread{
             loadFragment(firstFragment)
             Presenter(firstFragment)
